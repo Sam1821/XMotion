@@ -15,6 +15,22 @@ import type {
   ActiveWorkout, AppState, EquipmentId, ExerciseWithId, Gym, HistoryEntry, PR, Routine, RoutineId,
 } from "./types"
 
+// localStorage key for the active (in-progress) workout — restored on app launch
+// so that backgrounding the app doesn't lose progress.
+const ACTIVE_WORKOUT_LS_KEY = "xmotion.active-workout.v1"
+
+function genUid(): string {
+  return Math.random().toString(36).slice(2, 11)
+}
+
+// Stamp every exercise in a workout with a stable instance id (idempotent).
+function ensureUids(w: ActiveWorkout): ActiveWorkout {
+  return {
+    ...w,
+    exercises: w.exercises.map((e) => (e._uid ? e : { ...e, _uid: genUid() })),
+  }
+}
+
 // ─────── Default state (used until first Supabase load) ───────
 const defaultGym: Gym = {
   id: "g_default",
@@ -65,6 +81,7 @@ interface StoreCtx {
   addSetToExercise: (index: number) => void
   removeSetFromExercise: (index: number) => void
   setWorkoutName: (name: string) => void
+  setWorkoutNotes: (notes: string) => void
   saveCurrentAsRoutine: (name: string) => void
   // history
   deleteSession: (id: string) => void
@@ -300,12 +317,41 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [removeRoutine])
 
   const startWorkout = useCallback((w: ActiveWorkout) => {
-    setState((s) => ({ ...s, current: w }))
+    setState((s) => ({ ...s, current: ensureUids(w) }))
   }, [])
 
   const updateCurrent = useCallback((fn: (prev: ActiveWorkout) => ActiveWorkout) => {
     setState((s) => (s.current ? { ...s, current: fn(s.current) } : s))
   }, [])
+
+  // Restore an in-progress workout from localStorage on first mount.
+  // Runs once; never overwrites an already-loaded workout from Supabase.
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    try {
+      const raw = localStorage.getItem(ACTIVE_WORKOUT_LS_KEY)
+      if (!raw) return
+      const restored = JSON.parse(raw) as ActiveWorkout
+      if (!restored || !restored.exercises) return
+      setState((s) => (s.current ? s : { ...s, current: ensureUids(restored) }))
+    } catch {
+      // bad JSON / quota errors — ignore, just don't restore.
+    }
+  }, [])
+
+  // Persist active workout to localStorage on every change. Cleared on finish/cancel.
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    try {
+      if (state.current) {
+        localStorage.setItem(ACTIVE_WORKOUT_LS_KEY, JSON.stringify(state.current))
+      } else {
+        localStorage.removeItem(ACTIVE_WORKOUT_LS_KEY)
+      }
+    } catch {
+      // Quota errors etc — non-fatal.
+    }
+  }, [state.current])
 
   const cancelWorkout = useCallback(() => {
     setState((s) => ({ ...s, current: null }))
@@ -443,7 +489,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (!s.current) return s
       const def = EX[newExerciseId]
       if (!def) return s
-      const replacement: ExerciseWithId = { id: newExerciseId, ...def }
+      const replacement: ExerciseWithId = { id: newExerciseId, _uid: genUid(), ...def }
       const exs = s.current.exercises.map((e, i) => (i === index ? replacement : e))
       // Drop any previously logged sets for this slot since exercise changed.
       const newSets: Record<string, typeof s.current.sets[string]> = {}
@@ -464,7 +510,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         ...s,
         current: {
           ...s.current,
-          exercises: [...s.current.exercises, { id: exerciseId, ...def }],
+          exercises: [...s.current.exercises, { id: exerciseId, _uid: genUid(), ...def }],
         },
       }
     })
@@ -502,6 +548,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setState((s) => (s.current ? { ...s, current: { ...s.current, customName: name } } : s))
   }, [])
 
+  const setWorkoutNotes = useCallback((notes: string) => {
+    setState((s) => (s.current ? { ...s, current: { ...s.current, notes } } : s))
+  }, [])
+
   const saveCurrentAsRoutine = useCallback((name: string) => {
     const trimmed = name.trim()
     if (!trimmed) return
@@ -534,7 +584,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setActiveRoutine, addCustomRoutine, updateCustomRoutine, deleteCustomRoutine,
     startWorkout, updateCurrent, cancelWorkout, finishWorkout,
     reorderExercise, removeExercise, replaceExercise, addExerciseToWorkout,
-    addSetToExercise, removeSetFromExercise, setWorkoutName, saveCurrentAsRoutine,
+    addSetToExercise, removeSetFromExercise, setWorkoutName, setWorkoutNotes, saveCurrentAsRoutine,
     deleteSession, updateSession,
     signOut,
   }

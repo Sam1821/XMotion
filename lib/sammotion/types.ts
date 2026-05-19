@@ -48,7 +48,9 @@ export interface Exercise {
 }
 
 // Exercise with its key bundled (used at runtime in the active workout).
-export interface ExerciseWithId extends Exercise { id: string }
+// `_uid` is a stable instance ID — same exercise can appear multiple times in a
+// workout, so each slot gets its own UID for drag-and-drop tracking.
+export interface ExerciseWithId extends Exercise { id: string; _uid?: string }
 
 export type ExerciseDict = Record<string, Exercise>
 

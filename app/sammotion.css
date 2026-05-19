@@ -1071,3 +1071,45 @@
   letter-spacing: 1.5px;
   margin-bottom: 6px;
 }
+
+/* Drag handle + inline exercise action buttons (replaces the old 3-dot menu) */
+.dragHandle {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--t3);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  flex-shrink: 0;
+  transition: color 120ms, border-color 120ms;
+}
+.dragHandle:hover { color: var(--orange); border-color: var(--orange); }
+.dragHandle:active { cursor: grabbing; }
+
+.exActionBtn {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--t2);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 120ms, border-color 120ms, background 120ms;
+}
+.exActionBtn:hover { background: var(--card2); color: var(--orange); border-color: var(--omd); }
+.exActionBtn.danger {
+  background: #5a1818;
+  border-color: #7a1d1d;
+  color: #fff;
+}
