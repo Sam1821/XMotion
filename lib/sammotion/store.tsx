@@ -82,6 +82,7 @@ interface StoreCtx {
   removeSetFromExercise: (index: number) => void
   setWorkoutName: (name: string) => void
   setWorkoutNotes: (notes: string) => void
+  setExerciseNotes: (uid: string, notes: string) => void
   saveCurrentAsRoutine: (name: string) => void
   // history
   deleteSession: (id: string) => void
@@ -363,10 +364,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
       const exs: string[] = s.current.exercises.map((e) => e.n).slice(0, 4)
       const details = s.current.exercises.map((ex, ei) => {
-        const sets = Array.from({ length: ex.sets || 3 }).map((_, si) => {
+        const count = s.current!.setCounts?.[ei] ?? (ex.sets || 3)
+        const sets = Array.from({ length: count }).map((_, si) => {
           return s.current!.sets[`${ei}_${si}`] || { weight: 0, reps: 0, done: false }
         })
-        return { id: ex.id, n: ex.n, sets }
+        const exNotes = (ex._uid && s.current!.exerciseNotes?.[ex._uid]) || undefined
+        return { id: ex.id, n: ex.n, sets, notes: exNotes }
       })
 
       const entry: HistoryEntry = {
@@ -552,6 +555,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setState((s) => (s.current ? { ...s, current: { ...s.current, notes } } : s))
   }, [])
 
+  const setExerciseNotes = useCallback((uid: string, notes: string) => {
+    setState((s) => {
+      if (!s.current) return s
+      const next = { ...(s.current.exerciseNotes || {}) }
+      if (notes) next[uid] = notes
+      else delete next[uid]
+      return { ...s, current: { ...s.current, exerciseNotes: next } }
+    })
+  }, [])
+
   const saveCurrentAsRoutine = useCallback((name: string) => {
     const trimmed = name.trim()
     if (!trimmed) return
@@ -584,7 +597,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setActiveRoutine, addCustomRoutine, updateCustomRoutine, deleteCustomRoutine,
     startWorkout, updateCurrent, cancelWorkout, finishWorkout,
     reorderExercise, removeExercise, replaceExercise, addExerciseToWorkout,
-    addSetToExercise, removeSetFromExercise, setWorkoutName, setWorkoutNotes, saveCurrentAsRoutine,
+    addSetToExercise, removeSetFromExercise, setWorkoutName, setWorkoutNotes, setExerciseNotes, saveCurrentAsRoutine,
     deleteSession, updateSession,
     signOut,
   }

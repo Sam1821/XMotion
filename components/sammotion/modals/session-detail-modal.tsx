@@ -96,6 +96,12 @@ export function SessionDetailModal({
           {details.map((ex, ei) => (
             <div key={`${ex.id}_${ei}`} className="sdEx">
               <div className="t13 w7 mb8">{ex.n}</div>
+              {ex.notes ? (
+                <div className="t11 c2 mb8" style={{ background: "var(--bg)", padding: "6px 10px", borderRadius: 8, borderLeft: "2px solid var(--orange)" }}>
+                  <span className="co w7" style={{ marginRight: 4 }}>📝</span>
+                  {ex.notes}
+                </div>
+              ) : null}
               {ex.sets.map((s, si) => (
                 <div key={si} className="sdRow">
                   <span className="t10 c3 w7" style={{ width: 24 }}>{si + 1}</span>

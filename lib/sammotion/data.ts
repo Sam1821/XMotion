@@ -220,6 +220,113 @@ export const EX: ExerciseDict = {
   treadmill:    { n:"Treadmill Run",         p:["quads_rf","calves_gastroc"], s:["glutes","hamstrings_bf"], req:["treadmill"], sets:1, r:20, gif:gif("Cable_Hip_Adduction"), level:"beginner", category:"cardio" },
   bike:         { n:"Stationary Bike",       p:["quads_rf","quads_vl"], s:["calves_gastroc","glutes"], req:["bike"], sets:1, r:20, gif:gif("Stationary_Bike_Run_v__2"), level:"beginner", category:"cardio" },
   rower:        { n:"Rowing Machine",        p:["lats","rhomboids","quads_rf"], s:["biceps_long","glutes"], req:["rower"], sets:1, r:15, gif:gif("Rowing_Stationary"), level:"beginner", category:"cardio" },
+
+  // ═════════════════════════ EXTENDED LIBRARY ═════════════════════════
+
+  // ───── More Chest ─────
+  bench_floor:   { n:"Floor Press",            p:["chest_mid"], s:["triceps_lateral","delts_front"], req:["bb"], sets:4, r:6, w:50, gif:gif("Bench_Press_-_Powerlifting"), level:"intermediate", category:"compound" },
+  chest_dip_w:   { n:"Weighted Chest Dip",     p:["chest_lower"], s:["triceps_lateral","delts_front"], req:["dipbar","plate"], sets:4, r:8, w:10, gif:gif("Weighted_Bench_Dip"), level:"advanced", category:"compound" },
+  cable_fly_h:   { n:"High-to-Low Cable Fly",  p:["chest_lower"], s:["delts_front"], req:["cable"], sets:3, r:12, w:12, gif:gif("Cable_Crossover"), level:"beginner", category:"isolation" },
+  cable_fly_l:   { n:"Low-to-High Cable Fly",  p:["chest_upper"], s:["delts_front"], req:["cable"], sets:3, r:12, w:12, gif:gif("Cable_Crossover"), level:"beginner", category:"isolation" },
+  svend_press:   { n:"Svend Press",            p:["chest_mid"], s:["delts_front"], req:["plate"], sets:3, r:15, w:5, gif:gif("Dumbbell_Flyes"), level:"beginner", category:"isolation" },
+  push_wide:     { n:"Wide Push-Up",           p:["chest_mid","chest_upper"], s:["delts_front","triceps_lateral"], req:["bw"], sets:3, r:15, gif:gif("Wide-Grip_Pushup"), level:"beginner", category:"compound" },
+  push_decl:     { n:"Decline Push-Up",        p:["chest_upper"], s:["delts_front","triceps_lateral","abs_upper"], req:["bw","bench_flat"], sets:3, r:12, gif:gif("Decline_Pushup"), level:"intermediate", category:"compound" },
+  push_pike:     { n:"Pike Push-Up",           p:["delts_front"], s:["triceps_lateral","chest_upper","traps_upper"], req:["bw"], sets:3, r:10, gif:gif("Pushups"), level:"intermediate", category:"compound" },
+  push_spider:   { n:"Spider Push-Up",         p:["chest_mid"], s:["delts_front","triceps_lateral","obliques","abs_upper"], req:["bw"], sets:3, r:12, gif:gif("Pushups_Close_Triceps_Position"), level:"intermediate", category:"compound" },
+  landmine_pr:   { n:"Landmine Press",         p:["delts_front","chest_upper"], s:["triceps_lateral","abs_upper"], req:["bb","plate"], sets:3, r:10, w:20, gif:gif("Single-Arm_Linear_Jammer"), level:"intermediate", category:"compound" },
+
+  // ───── More Back ─────
+  pendlay:       { n:"Pendlay Row",            p:["lats","rhomboids"], s:["traps_mid","biceps_long","lower_back"], req:["bb"], sets:4, r:6, w:60, gif:gif("Bent_Over_Barbell_Row"), level:"advanced", category:"compound" },
+  meadows_row:   { n:"Meadows Row",            p:["lats","rhomboids"], s:["biceps_long","rear_delts","traps_mid"], req:["bb","plate"], sets:4, r:10, w:20, gif:gif("Bent_Over_Barbell_Row"), level:"intermediate", category:"compound" },
+  chest_supp:    { n:"Chest-Supported Row",    p:["rhomboids","lats"], s:["traps_mid","biceps_long","rear_delts"], req:["db","bench_inc"], sets:4, r:10, w:18, gif:gif("Bent_Over_Two-Arm_Long_Bar_Row"), level:"beginner", category:"compound" },
+  inverted_row:  { n:"Inverted Row",           p:["lats","rhomboids"], s:["biceps_long","rear_delts","traps_mid"], req:["bb","rack"], sets:3, r:12, gif:gif("Suspended_Row"), level:"beginner", category:"compound" },
+  pullup_wide:   { n:"Wide-Grip Pull-Up",      p:["lats"], s:["rhomboids","biceps_long","rear_delts"], req:["pullup"], sets:4, r:6, gif:gif("Wide-Grip_Lat_Pulldown"), level:"advanced", category:"compound" },
+  pullup_neut:   { n:"Neutral-Grip Pull-Up",   p:["lats","biceps_long"], s:["brachialis","rhomboids"], req:["pullup"], sets:4, r:8, gif:gif("Close-Grip_Front_Lat_Pulldown"), level:"intermediate", category:"compound" },
+  rack_pull:     { n:"Rack Pull",              p:["lower_back","traps_mid"], s:["lats","glutes","forearms"], req:["bb","rack"], sets:3, r:5, w:100, gif:gif("Rack_Pulls"), level:"advanced", category:"compound" },
+  dl_snatch:     { n:"Snatch-Grip Deadlift",   p:["lower_back","traps_mid","hamstrings_bf"], s:["lats","glutes","forearms"], req:["bb"], sets:3, r:5, w:70, gif:gif("Snatch_Deadlift"), level:"advanced", category:"compound" },
+  dl_sumo:       { n:"Sumo Deadlift",          p:["glutes","hamstrings_bf","quads_vm"], s:["lower_back","traps_mid","adductors"], req:["bb"], sets:4, r:5, w:80, gif:gif("Sumo_Deadlift"), level:"advanced", category:"compound" },
+  dl_stiff:      { n:"Stiff-Leg Deadlift",     p:["hamstrings_bf","hamstrings_sm","lower_back"], s:["glutes","forearms"], req:["bb"], sets:3, r:8, w:50, gif:gif("Stiff-Legged_Barbell_Deadlift"), level:"intermediate", category:"compound" },
+  shrug_smith:   { n:"Smith Machine Shrug",    p:["traps_upper"], s:["forearms"], req:["smith"], sets:3, r:12, w:50, gif:gif("Smith_Machine_Shrug"), level:"beginner", category:"isolation" },
+
+  // ───── More Shoulders ─────
+  push_press:    { n:"Push Press",             p:["delts_front","delts_side"], s:["triceps_lateral","traps_upper","quads_rf"], req:["bb"], sets:4, r:5, w:40, gif:gif("Standing_Military_Press"), level:"advanced", category:"compound" },
+  cable_fp:      { n:"Cable Face Pull",        p:["rear_delts","traps_mid"], s:["rhomboids"], req:["cable"], sets:3, r:15, w:20, gif:gif("Face_Pull"), level:"beginner", category:"isolation" },
+  rev_pec_deck:  { n:"Reverse Pec Deck",       p:["rear_delts"], s:["rhomboids","traps_mid"], req:["pec_deck"], sets:3, r:12, w:25, gif:gif("Reverse_Machine_Flyes"), level:"beginner", category:"isolation" },
+  y_raise:       { n:"Y-Raise",                p:["delts_side","traps_lower"], s:["delts_front"], req:["db","bench_inc"], sets:3, r:12, w:6, gif:gif("Side_Lateral_Raise"), level:"beginner", category:"isolation" },
+  cuban_press:   { n:"Cuban Press",            p:["delts_side","rear_delts"], s:["traps_upper"], req:["db"], sets:3, r:10, w:6, gif:gif("Cuban_Press"), level:"intermediate", category:"isolation" },
+  z_press:       { n:"Z Press",                p:["delts_front"], s:["triceps_lateral","abs_upper"], req:["bb","mat"], sets:3, r:8, w:30, gif:gif("Standing_Military_Press"), level:"intermediate", category:"compound" },
+
+  // ───── More Biceps ─────
+  curl_spider:   { n:"Spider Curl",            p:["biceps_short"], s:["brachialis"], req:["db","bench_inc"], sets:3, r:12, w:10, gif:gif("Spider_Curl"), level:"intermediate", category:"isolation" },
+  curl_drag:     { n:"Drag Curl",              p:["biceps_long"], s:["biceps_short","brachialis"], req:["bb"], sets:3, r:10, w:25, gif:gif("Barbell_Curl"), level:"intermediate", category:"isolation" },
+  curl_21s:      { n:"21s",                    p:["biceps_long","biceps_short"], s:["brachialis","forearms"], req:["bb","ez"], sets:3, r:21, w:15, gif:gif("Barbell_Curl"), level:"intermediate", category:"isolation" },
+  curl_zott:     { n:"Zottman Curl",           p:["biceps_short","brachialis"], s:["forearms"], req:["db"], sets:3, r:10, w:10, gif:gif("Zottman_Curl"), level:"intermediate", category:"isolation" },
+  curl_reverse:  { n:"Reverse Curl",           p:["brachialis","forearms"], s:["biceps_long"], req:["bb","ez"], sets:3, r:12, w:15, gif:gif("Reverse_Barbell_Curl"), level:"beginner", category:"isolation" },
+
+  // ───── More Triceps ─────
+  jm_press:      { n:"JM Press",               p:["triceps_lateral","triceps_long"], s:["chest_mid","delts_front"], req:["bb","bench_flat"], sets:3, r:8, w:30, gif:gif("Bench_Press_-_Powerlifting"), level:"advanced", category:"compound" },
+  dip_bench:     { n:"Bench Dip",              p:["triceps_long","triceps_lateral"], s:["chest_lower","delts_front"], req:["bench_flat"], sets:3, r:12, gif:gif("Bench_Dips"), level:"beginner", category:"compound" },
+  push_single:   { n:"Single-Arm Pushdown",    p:["triceps_lateral"], s:["triceps_long"], req:["cable"], sets:3, r:12, w:12, gif:gif("Reverse_Grip_Triceps_Pushdown"), level:"beginner", category:"isolation" },
+  ext_oh_bb:     { n:"OH BB Tri Extension",    p:["triceps_long"], s:["triceps_medial"], req:["ez","bench_flat"], sets:3, r:10, w:20, gif:gif("Bar_Skullcrusher"), level:"intermediate", category:"isolation" },
+
+  // ───── More Legs (Quads / Hams / Glutes) ─────
+  squat_pause:   { n:"Pause Squat",            p:["quads_rf","quads_vl","glutes"], s:["hamstrings_bf","abs_upper"], req:["bb","rack"], sets:4, r:5, w:60, gif:gif("Barbell_Squat"), level:"advanced", category:"compound" },
+  squat_box:     { n:"Box Squat",              p:["glutes","quads_vl","hamstrings_bf"], s:["lower_back","quads_rf"], req:["bb","rack","box"], sets:4, r:5, w:80, gif:gif("Box_Squat_with_Bands"), level:"intermediate", category:"compound" },
+  squat_zerch:   { n:"Zercher Squat",          p:["quads_rf","quads_vl","glutes"], s:["abs_upper","biceps_long","traps_mid"], req:["bb"], sets:3, r:8, w:40, gif:gif("Zercher_Squats"), level:"advanced", category:"compound" },
+  sissy_squat:   { n:"Sissy Squat",            p:["quads_rf","quads_vm"], s:["quads_vl"], req:["bw"], sets:3, r:12, gif:gif("Sissy_Squat"), level:"intermediate", category:"isolation" },
+  pistol:        { n:"Pistol Squat",           p:["quads_rf","quads_vl","glutes"], s:["adductors","abs_upper"], req:["bw"], sets:3, r:8, gif:gif("Single_Leg_Pistol_Squat"), level:"advanced", category:"compound" },
+  lunge_rev:     { n:"Reverse Lunge",          p:["quads_vl","glutes"], s:["hamstrings_bf","adductors"], req:["db"], sets:3, r:12, w:12, gif:gif("Reverse_Crunch"), level:"beginner", category:"compound" },
+  lunge_lat:     { n:"Lateral Lunge",          p:["adductors","glutes"], s:["quads_vl","hamstrings_bf"], req:["db","bw"], sets:3, r:12, w:10, gif:gif("Side_Lunge"), level:"beginner", category:"compound" },
+  cossack:       { n:"Cossack Squat",          p:["adductors","glutes","quads_vl"], s:["hamstrings_bf"], req:["bw","db"], sets:3, r:10, gif:gif("Side_Lunge"), level:"intermediate", category:"compound" },
+  wall_sit:      { n:"Wall Sit",               p:["quads_rf","quads_vl","quads_vm"], s:["glutes","calves_gastroc"], req:["bw"], sets:3, r:45, gif:gif("Wall_Squat"), level:"beginner", category:"isolation" },
+  nordic_curl:   { n:"Nordic Hamstring Curl",  p:["hamstrings_bf","hamstrings_sm"], s:["glutes","calves_gastroc"], req:["bw","mat"], sets:3, r:6, gif:gif("Lying_Leg_Curls"), level:"advanced", category:"isolation" },
+  ghr:           { n:"Glute Ham Raise",        p:["hamstrings_bf","glutes"], s:["lower_back","calves_gastroc"], req:["back_ext"], sets:3, r:8, gif:gif("Glute_Ham_Raise"), level:"advanced", category:"isolation" },
+  rdl_single:    { n:"Single-Leg RDL",         p:["hamstrings_bf","glutes"], s:["lower_back","adductors"], req:["db"], sets:3, r:10, w:10, gif:gif("Romanian_Deadlift_with_Dumbbells"), level:"intermediate", category:"compound" },
+  pull_through:  { n:"Cable Pull-Through",     p:["glutes","hamstrings_bf"], s:["lower_back"], req:["cable"], sets:3, r:12, w:25, gif:gif("Pull_Through"), level:"beginner", category:"compound" },
+  kickback_glu:  { n:"Donkey Kickback",        p:["glutes"], s:["hamstrings_bf"], req:["bw","band"], sets:3, r:15, gif:gif("Glute_Kickback"), level:"beginner", category:"isolation" },
+  frog_pump:     { n:"Frog Pump",              p:["glutes"], s:["adductors"], req:["bw"], sets:3, r:20, gif:gif("Butt_Lift_Bridge"), level:"beginner", category:"isolation" },
+  hip_abd:       { n:"Hip Abduction Machine",  p:["abductors","glutes"], s:[], req:["glute_m"], sets:3, r:15, w:30, gif:gif("Side_Hip_Abductor"), level:"beginner", category:"isolation" },
+  hip_add:       { n:"Hip Adduction Machine",  p:["adductors"], s:[], req:["glute_m"], sets:3, r:15, w:30, gif:gif("Cable_Hip_Adduction"), level:"beginner", category:"isolation" },
+
+  // ───── More Calves ─────
+  calf_donkey:   { n:"Donkey Calf Raise",      p:["calves_gastroc"], s:["calves_soleus"], req:["calf_m"], sets:4, r:15, w:35, gif:gif("Donkey_Calf_Raises"), level:"beginner", category:"isolation" },
+  calf_lp:       { n:"Leg Press Calf Raise",   p:["calves_gastroc"], s:["calves_soleus"], req:["leg_press"], sets:4, r:15, w:80, gif:gif("Calf_Press"), level:"beginner", category:"isolation" },
+  tib_raise:     { n:"Tibialis Raise",         p:["calves_soleus"], s:[], req:["bw"], sets:3, r:20, gif:gif("Calf-Machine_Shoulder_Shrug"), level:"beginner", category:"isolation" },
+
+  // ───── More Core ─────
+  sit_up:        { n:"Sit-Up",                 p:["abs_upper","abs_lower"], s:["obliques"], req:["bw","mat"], sets:3, r:20, gif:gif("Sit-Up"), level:"beginner", category:"isolation" },
+  bicycle:       { n:"Bicycle Crunch",         p:["abs_upper","obliques"], s:["abs_lower"], req:["bw","mat"], sets:3, r:30, gif:gif("Air_Bike"), level:"beginner", category:"isolation" },
+  toe_touch:     { n:"Toe Touch Crunch",       p:["abs_upper"], s:["hamstrings_bf"], req:["bw","mat"], sets:3, r:20, gif:gif("Crunches"), level:"beginner", category:"isolation" },
+  dragon_flag:   { n:"Dragon Flag",            p:["abs_upper","abs_lower"], s:["obliques","lower_back"], req:["bench_flat"], sets:3, r:6, gif:gif("Dragon_Flag"), level:"advanced", category:"isolation" },
+  l_sit:         { n:"L-Sit Hold",             p:["abs_lower"], s:["quads_rf","abs_upper"], req:["dipbar","bw"], sets:3, r:15, gif:gif("Hanging_Leg_Raise"), level:"advanced", category:"isolation" },
+  v_up:          { n:"V-Up",                   p:["abs_upper","abs_lower"], s:["quads_rf"], req:["bw","mat"], sets:3, r:15, gif:gif("Frog_Sit-Ups"), level:"intermediate", category:"isolation" },
+  dead_bug:      { n:"Dead Bug",               p:["abs_lower","abs_upper"], s:["obliques"], req:["bw","mat"], sets:3, r:12, gif:gif("Dead_Bug"), level:"beginner", category:"isolation" },
+  bird_dog:      { n:"Bird Dog",               p:["lower_back","abs_upper"], s:["glutes","obliques"], req:["bw","mat"], sets:3, r:12, gif:gif("Bird_Dog"), level:"beginner", category:"isolation" },
+  pallof:        { n:"Pallof Press",           p:["obliques","abs_upper"], s:["abs_lower"], req:["cable","band"], sets:3, r:12, w:15, gif:gif("Pallof_Press_With_Rotation"), level:"intermediate", category:"isolation" },
+  woodchop:      { n:"Cable Woodchopper",      p:["obliques"], s:["abs_upper","abs_lower"], req:["cable"], sets:3, r:12, w:15, gif:gif("Wood_Chops"), level:"intermediate", category:"isolation" },
+  hollow_hold:   { n:"Hollow Body Hold",       p:["abs_upper","abs_lower"], s:["quads_rf"], req:["bw","mat"], sets:3, r:30, gif:gif("Stomach_Vacuum"), level:"intermediate", category:"isolation" },
+  reverse_crun:  { n:"Reverse Crunch",         p:["abs_lower"], s:["abs_upper"], req:["bw","mat","bench_flat"], sets:3, r:15, gif:gif("Reverse_Crunch"), level:"beginner", category:"isolation" },
+  decline_situp: { n:"Decline Sit-Up",         p:["abs_upper","abs_lower"], s:["hamstrings_bf"], req:["bench_dec","bench_ab"], sets:3, r:15, gif:gif("Decline_Crunch"), level:"intermediate", category:"isolation" },
+  ham_windshield:{ n:"Windshield Wiper",       p:["obliques","abs_lower"], s:["abs_upper"], req:["bw","mat"], sets:3, r:12, gif:gif("Windmills"), level:"intermediate", category:"isolation" },
+
+  // ───── More Forearms / Grip ─────
+  plate_pinch:   { n:"Plate Pinch",            p:["forearms"], s:[], req:["plate"], sets:3, r:30, w:10, gif:gif("Palms-Up_Dumbbell_Wrist_Curl_Over_A_Bench"), level:"beginner", category:"isolation" },
+  wrist_roller:  { n:"Wrist Roller",           p:["forearms"], s:["biceps_long"], req:["plate"], sets:3, r:6, gif:gif("Palms-Up_Dumbbell_Wrist_Curl_Over_A_Bench"), level:"intermediate", category:"isolation" },
+
+  // ───── More Functional / Cardio / Plyometric ─────
+  jump_rope:     { n:"Jump Rope",              p:["calves_gastroc"], s:["forearms","quads_rf","delts_side"], req:["bw"], sets:3, r:60, gif:gif("Rope_Jumping"), level:"beginner", category:"cardio" },
+  sled_push:     { n:"Sled Push",              p:["quads_rf","glutes"], s:["calves_gastroc","chest_mid"], req:["bw"], sets:3, r:20, gif:gif("Push-Ups_-_Close_Triceps_Position"), level:"intermediate", category:"compound" },
+  battle_rope:   { n:"Battle Rope Waves",      p:["delts_side","forearms"], s:["abs_upper","biceps_long"], req:["rope"], sets:3, r:30, gif:gif("Rope_Jumping"), level:"intermediate", category:"cardio" },
+  broad_jump:    { n:"Broad Jump",             p:["glutes","quads_vl"], s:["calves_gastroc","hamstrings_bf"], req:["bw"], sets:4, r:6, gif:gif("Bodyweight_Squat"), level:"intermediate", category:"compound" },
+  depth_jump:    { n:"Depth Jump",             p:["quads_vl","glutes","calves_gastroc"], s:["hamstrings_bf"], req:["box"], sets:4, r:5, gif:gif("Box_Jump_Multiple_Response"), level:"advanced", category:"compound" },
+  tuck_jump:     { n:"Tuck Jump",              p:["quads_vl","quads_rf","calves_gastroc"], s:["abs_lower","glutes"], req:["bw"], sets:3, r:10, gif:gif("Bodyweight_Squat"), level:"intermediate", category:"compound" },
+  kb_goblet:     { n:"KB Goblet Carry",        p:["abs_upper","forearms"], s:["traps_upper","glutes"], req:["kb"], sets:3, r:30, w:16, gif:gif("Farmers_Walk"), level:"beginner", category:"compound" },
+  kb_clean:      { n:"KB Clean",               p:["glutes","hamstrings_bf","traps_upper"], s:["forearms","lower_back","delts_front"], req:["kb"], sets:3, r:8, w:16, gif:gif("Clean"), level:"intermediate", category:"compound" },
+  kb_snatch:     { n:"KB Snatch",              p:["glutes","hamstrings_bf","delts_side"], s:["forearms","traps_upper","abs_upper"], req:["kb"], sets:3, r:8, w:12, gif:gif("Power_Snatch"), level:"advanced", category:"compound" },
+  turkish_getup: { n:"Turkish Get-Up",         p:["abs_upper","delts_front"], s:["glutes","quads_rf","obliques"], req:["kb","db"], sets:3, r:5, w:12, gif:gif("Get-Ups"), level:"advanced", category:"compound" },
+  thruster:      { n:"Thruster",               p:["quads_rf","delts_front"], s:["glutes","triceps_lateral"], req:["db","bb"], sets:3, r:10, w:15, gif:gif("Clean_and_Press"), level:"intermediate", category:"compound" },
+  clean_press:   { n:"Clean & Press",          p:["delts_front","glutes"], s:["quads_rf","traps_upper","triceps_lateral"], req:["bb"], sets:3, r:6, w:40, gif:gif("Clean_and_Press"), level:"advanced", category:"compound" },
+  hang_clean:    { n:"Hang Clean",             p:["traps_upper","glutes"], s:["hamstrings_bf","forearms","delts_front"], req:["bb"], sets:3, r:5, w:40, gif:gif("Hang_Clean"), level:"advanced", category:"compound" },
 }
 
 // ──────────────────────────── Built-in routines ────────────────────────────

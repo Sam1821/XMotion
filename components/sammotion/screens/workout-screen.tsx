@@ -52,6 +52,7 @@ export function WorkoutScreen({
     removeSetFromExercise,
     setWorkoutName,
     setWorkoutNotes,
+    setExerciseNotes,
   } = useStore()
   const current = state.current
   const [openIdx, setOpenIdx] = useState<number>(0)
@@ -239,6 +240,8 @@ export function WorkoutScreen({
                     getSet={(si) => getSet(i, si, ex)}
                     onAdjust={(si, field, delta) => adjust(i, si, ex, field, delta)}
                     onToggleSetDone={(si) => toggleDone(i, si, ex)}
+                    notes={(ex._uid && current.exerciseNotes?.[ex._uid]) || ""}
+                    onChangeNotes={(v) => { if (ex._uid) setExerciseNotes(ex._uid, v) }}
                   />
                 ))}
               </div>
@@ -301,6 +304,8 @@ function SortableExerciseCard({
   getSet,
   onAdjust,
   onToggleSetDone,
+  notes,
+  onChangeNotes,
 }: {
   uid: string
   ex: ExerciseWithId
@@ -316,6 +321,8 @@ function SortableExerciseCard({
   getSet: (si: number) => SetLog
   onAdjust: (si: number, field: "weight" | "reps", delta: number) => void
   onToggleSetDone: (si: number) => void
+  notes: string
+  onChangeNotes: (v: string) => void
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: uid })
   const style: React.CSSProperties = {
@@ -470,6 +477,20 @@ function SortableExerciseCard({
             <button type="button" className="bdg" onClick={onRemoveSet} disabled={setCount <= 1}>− Remove set</button>
             <button type="button" className="bdg bdo" onClick={onAddSet}>+ Add set</button>
           </div>
+        </div>
+
+        {/* Per-exercise notes */}
+        <div style={{ marginTop: 12 }}>
+          <div className="t10 w7 c2 upper mb6" style={{ letterSpacing: ".6px" }}>Exercise Notes</div>
+          <textarea
+            className="inp"
+            value={notes}
+            onChange={(e) => onChangeNotes(e.target.value)}
+            placeholder="Form cues, pain points, weight progression notes…"
+            rows={2}
+            maxLength={300}
+            style={{ resize: "vertical", minHeight: 50, fontFamily: "inherit" }}
+          />
         </div>
       </div>
     </div>

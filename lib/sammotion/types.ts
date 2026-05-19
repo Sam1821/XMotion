@@ -88,11 +88,12 @@ export interface ActiveWorkout {
   routineId: RoutineId
   startTime: number
   exercises: ExerciseWithId[]
-  sets: Record<string, SetLog>  // key: `${exerciseIndex}_${setIndex}`
-  setCounts?: Record<number, number>  // override default ex.sets per index — lets users add extra sets mid-workout
-  customName?: string                 // user-typed name (overrides routine.name in UI)
-  splitId?: string                    // which split was picked when starting
-  notes?: string
+  sets: Record<string, SetLog>          // key: `${exerciseIndex}_${setIndex}`
+  setCounts?: Record<number, number>    // override default ex.sets per index — lets users add extra sets mid-workout
+  customName?: string                   // user-typed name (overrides routine.name in UI)
+  splitId?: string                      // which split was picked when starting
+  notes?: string                        // workout-wide notes (energy, mood, general observations)
+  exerciseNotes?: Record<string, string> // per-exercise notes keyed by ExerciseWithId._uid
 }
 
 // ───────────────────────────── Splits (training programs) ─────────────────────────────
@@ -110,6 +111,7 @@ export interface HistoryExerciseLog {
   id: string
   n: string
   sets: SetLog[]
+  notes?: string  // per-exercise notes captured from the workout
 }
 
 export interface HistoryEntry {
