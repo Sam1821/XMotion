@@ -247,6 +247,11 @@ export const EX: ExerciseDict = {
   dl_sumo:       { n:"Sumo Deadlift",          p:["glutes","hamstrings_bf","quads_vm"], s:["lower_back","traps_mid","adductors"], req:["bb"], sets:4, r:5, w:80, gif:gif("Sumo_Deadlift"), level:"advanced", category:"compound" },
   dl_stiff:      { n:"Stiff-Leg Deadlift",     p:["hamstrings_bf","hamstrings_sm","lower_back"], s:["glutes","forearms"], req:["bb"], sets:3, r:8, w:50, gif:gif("Stiff-Legged_Barbell_Deadlift"), level:"intermediate", category:"compound" },
   shrug_smith:   { n:"Smith Machine Shrug",    p:["traps_upper"], s:["forearms"], req:["smith"], sets:3, r:12, w:50, gif:gif("Smith_Machine_Shrug"), level:"beginner", category:"isolation" },
+  straight_arm:  { n:"Straight-Arm Pull-Down",  p:["lats"], s:["triceps_long","rear_delts"], req:["cable","pulldown"], sets:3, r:12, w:20, gif:gif("Straight-Arm_Pulldown"), level:"beginner", category:"isolation" },
+  lat_pull_cgrip:{ n:"Close-Grip Pulldown",    p:["lats","biceps_long"], s:["rhomboids","biceps_short"], req:["pulldown"], sets:4, r:10, w:45, gif:gif("Close-Grip_Front_Lat_Pulldown"), level:"beginner", category:"compound" },
+  lat_pull_rev:  { n:"Reverse-Grip Pulldown",  p:["lats","biceps_short"], s:["biceps_long","rhomboids"], req:["pulldown"], sets:3, r:10, w:45, gif:gif("Reverse_Grip_Triceps_Pushdown"), level:"intermediate", category:"compound" },
+  cable_row_1arm:{ n:"Single-Arm Cable Row",   p:["lats","rhomboids"], s:["biceps_long","rear_delts"], req:["cable","row_cable"], sets:3, r:12, w:25, gif:gif("Seated_One-Arm_Cable_Pulley_Row"), level:"beginner", category:"compound" },
+  good_morning2: { n:"Seated Good Morning",    p:["lower_back","hamstrings_bf"], s:["glutes"], req:["bb","bench_flat"], sets:3, r:10, w:30, gif:gif("Good_Morning"), level:"intermediate", category:"compound" },
 
   // ───── More Shoulders ─────
   push_press:    { n:"Push Press",             p:["delts_front","delts_side"], s:["triceps_lateral","traps_upper","quads_rf"], req:["bb"], sets:4, r:5, w:40, gif:gif("Standing_Military_Press"), level:"advanced", category:"compound" },

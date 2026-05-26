@@ -355,10 +355,9 @@ function SortableExerciseCard({
         <div className="row g8 f1" role="button" tabIndex={0} onClick={onToggleOpen} style={{ minWidth: 0 }}>
           <div className="exNum">{index + 1}</div>
           <div className="col f1 g4" style={{ minWidth: 0 }}>
-            <div className="row g8" style={{ minWidth: 0 }}>
-              <span className="t15 w7" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{ex.n}</span>
-              <span className="muscleTag">{primaryLabels}</span>
-            </div>
+            {/* Name wraps to multiple lines if needed — no more ellipsis truncation */}
+            <span className="t15 w7" style={{ lineHeight: 1.25, wordBreak: "break-word" }}>{ex.n}</span>
+            {primaryLabels ? <span className="muscleTag" style={{ alignSelf: "flex-start" }}>{primaryLabels}</span> : null}
             <span className="t11 c2">{setCount} sets × {ex.r} reps{ex.w ? ` · ${ex.w} kg` : ""}</span>
           </div>
         </div>
