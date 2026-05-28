@@ -10,9 +10,9 @@ import {
 } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { ALL_EQ_IDS, EX } from "./data"
-import { calcE1RM, recomputePRsFromHistory } from "./helpers"
+import { calcE1RM, getLastLoggedSets, recomputePRsFromHistory } from "./helpers"
 import type {
-  ActiveWorkout, AppState, EquipmentId, ExerciseWithId, Gym, HistoryEntry, PR, Routine, RoutineId,
+  ActiveWorkout, AppState, EquipmentId, ExerciseWithId, Gym, HistoryEntry, PR, Routine, RoutineId, SetLog,
 } from "./types"
 
 // localStorage key for the active (in-progress) workout — restored on app launch
@@ -318,7 +318,24 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [removeRoutine])
 
   const startWorkout = useCallback((w: ActiveWorkout) => {
-    setState((s) => ({ ...s, current: ensureUids(w) }))
+    setState((s) => {
+      const withUids = ensureUids(w)
+      // Progressive-overload memory: pre-fill each set with the weight/reps used
+      // the last time this exercise was logged. `done` always starts false.
+      const prefilled: Record<string, SetLog> = { ...withUids.sets }
+      withUids.exercises.forEach((ex, ei) => {
+        const last = getLastLoggedSets(s.history, ex.id)
+        if (!last || last.length === 0) return
+        const count = withUids.setCounts?.[ei] ?? (ex.sets || 3)
+        for (let si = 0; si < count; si++) {
+          const key = `${ei}_${si}`
+          if (prefilled[key]) continue
+          const src = last[si] || last[last.length - 1]  // reuse last set's numbers if fewer were logged
+          prefilled[key] = { weight: src.weight, reps: src.reps, done: false }
+        }
+      })
+      return { ...s, current: { ...withUids, sets: prefilled } }
+    })
   }, [])
 
   const updateCurrent = useCallback((fn: (prev: ActiveWorkout) => ActiveWorkout) => {
@@ -509,13 +526,18 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (!s.current) return s
       const def = EX[exerciseId]
       if (!def) return s
-      return {
-        ...s,
-        current: {
-          ...s.current,
-          exercises: [...s.current.exercises, { id: exerciseId, _uid: genUid(), ...def }],
-        },
+      const newIndex = s.current.exercises.length
+      const exercises = [...s.current.exercises, { id: exerciseId, _uid: genUid(), ...def }]
+      // Pre-fill the newly-added exercise's sets from last logged session too.
+      const sets = { ...s.current.sets }
+      const last = getLastLoggedSets(s.history, exerciseId)
+      if (last && last.length > 0) {
+        for (let si = 0; si < (def.sets || 3); si++) {
+          const src = last[si] || last[last.length - 1]
+          sets[`${newIndex}_${si}`] = { weight: src.weight, reps: src.reps, done: false }
+        }
       }
+      return { ...s, current: { ...s.current, exercises, sets } }
     })
   }, [])
 

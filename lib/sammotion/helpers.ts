@@ -1,7 +1,7 @@
 // SamMotion — pure helpers (no React, no Supabase).
 
 import { EX, ROUTINES, ROUTINE_PRIORITY, SAMPLE_HISTORY, SAMPLE_PRS } from "./data"
-import type { AppState, ExerciseWithId, Gym, HistoryEntry, PR, RoutineId } from "./types"
+import type { AppState, ExerciseWithId, Gym, HistoryEntry, PR, RoutineId, SetLog } from "./types"
 
 // ───────── Math ─────────
 // Brzycki estimated 1-rep max — well-behaved for reps ≤ 10.
@@ -119,6 +119,20 @@ export function getPRsToShow(state: AppState) {
   if (realKeys.length > 0) return state.prs
   if (state.isFirstTime) return SAMPLE_PRS as typeof state.prs
   return state.prs
+}
+
+// ───────── Progressive-overload memory ─────────
+// Find the most recent logged sets for a given exercise across real history.
+// Used to pre-fill weight/reps when the same exercise comes up in a new workout.
+export function getLastLoggedSets(history: HistoryEntry[], exerciseId: string): SetLog[] | null {
+  const sorted = [...history]
+    .filter((h) => !h.sample && h.details)
+    .sort((a, b) => b.date.localeCompare(a.date))
+  for (const h of sorted) {
+    const ex = h.details!.find((d) => d.id === exerciseId)
+    if (ex && ex.sets.length > 0) return ex.sets
+  }
+  return null
 }
 
 // ───────── PR recompute ─────────
